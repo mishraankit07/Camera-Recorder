@@ -1,0 +1,108 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.video-cont{
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+.video-stream{
+    width: 100%;
+    height: 100%;
+}
+
+.controls-cont{
+    width: 10rem;
+    height: 15rem;
+    /* background-color: brown;*/
+    position: absolute;
+    top: calc(( 100vh - 10rem ) / 2);
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.controls-cont > *{
+    background-color: black;
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+}
+
+.record-btn{
+    height: 3rem;
+    background-color: red;
+    width: 3rem;
+    border-radius: 50%;
+}
+
+.capture-btn{
+    height: 3rem;
+    background-color: white;
+    width: 3rem;
+    border-radius: 50%;
+}
+
+.scale-record-btn{
+    animation-name: scale-record-btn;
+    /*how many times we want to perform animation*/
+    animation-iteration-count: infinite;
+    /*duration between two animations*/
+    animation-duration: 1s;
+}
+
+@keyframes scale-record-btn{
+    /* when the animation just started do this*/
+    0%{
+        transform: scale(0.7);
+    }
+
+    /*when the animation is complete do this*/
+    100%{
+        transform: scale(1.1);
+    }
+}
+
+.scale-capture-btn{
+    animation-name: scale-capture-btn;
+    /*how many times we want to perform animation*/
+    animation-iteration-count: 1;
+    /*duration between two animations*/
+    animation-duration: 1s;
+}
+
+@keyframes scale-capture-btn{
+    /* when the animation just started do this*/
+    0%{
+        transform: scale(0.7);
+    }
+
+    /*when the animation is complete do this*/
+    100%{
+        transform: scale(1.1);
+    }
+}
+
+.timer-cont{
+    display: none;
+    width: 5rem;
+    height: 5rem;
+    color: cyan;
+    font-size: 1rem;
+    position: absolute;
+    top: calc((100vh - 5rem) / 2);
+    left: 2rem;
+}
