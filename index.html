@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Camera Gallery </title>
+    <link rel="icon" type="image/png" href="./images/favicon.png"/>
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
     <div class="video-cont">
         <video class="video-stream" autoplay>
-            <source src="">
         </video>
     </div>
 
@@ -29,6 +29,16 @@
     <div class="timer-cont">
         <div class="timer"> 00:00:00 </div>
     </div>
+
+    <div class="filters-cont">
+        <div class="filter orange"></div>
+        <div class="filter brown"></div>
+        <div class="filter pink"></div>
+        <div class="filter transparent"></div>
+    </div>
+
+    <!-- A div of a specific color when applied to whole screen behaves as a filter -->
+    <div class="img-filter"></div>
     <script src="./script.js"></script>
 </body>
 
