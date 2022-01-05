@@ -1,5 +1,8 @@
+let videoCont = document.querySelector(".video-cont");
 let videoStream = document.querySelector(".video-stream");
+let controlsCont = document.querySelector(".controls-cont");
 let recordBtnCont = document.querySelector(".record-btn-cont");
+let filtersCont = document.querySelector(".filters-cont");
 let recordBtn = document.querySelector(".record-btn");
 let captureBtnCont = document.querySelector(".capture-btn-cont");
 let captureBtn = document.querySelector(".capture-btn");
@@ -7,6 +10,12 @@ let timerCont = document.querySelector(".timer-cont");
 let timer = document.querySelector(".timer");
 let imgFilter = document.querySelector(".img-filter");
 let filtersArr = document.querySelectorAll(".filter");
+let mainCont = document.querySelector(".main-cont");
+let screenRecordBtn = document.querySelector(".screen-record-btn");
+let videoRecordBtn = document.querySelector(".video-record-btn");
+let galleryBtn=document.querySelector(".gallery-icon-cont");
+
+console.log("gallery btn:",galleryBtn);
 
 let recording = false;
 let capturing = false;
@@ -32,40 +41,57 @@ for (let i = 0; i < filtersArr.length; i++) {
     })
 }
 
-navigator.mediaDevices.getUserMedia(constraints)
-    .then(function (mediaStream) {
-        videoStream.srcObject = mediaStream;
-        mediaRecorder = new MediaRecorder(mediaStream);
+    console.log("video record btn clicked!");
 
-        // // when the recording starts, clear out the old recorded array
-        mediaRecorder.addEventListener("start", function (e) {
-            chunks = [];
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function (mediaStream) {
+            // videoStream.srcObject = mediaStream;
+            mediaRecorder = new MediaRecorder(mediaStream);
+
+            // // when the recording starts, clear out the old recorded array
+            mediaRecorder.addEventListener("start", function (e) {
+                chunks = [];
+            });
+
+            // the media recorder api dosen't record continuouisly
+            // but records in chunks so need to store all the chunks;
+            mediaRecorder.addEventListener("dataavailable", function (e) {
+                chunks.push(e.data);
+            });
+
+            // // mediaRecorder.stop calls this callback
+            // // recording has stopped
+            mediaRecorder.addEventListener("stop", function (e) {
+
+                // once the recording has stopped need to combine the chunks
+                let blob = new Blob(chunks, { 'type': 'video/mp4' });
+                let videoUrl = URL.createObjectURL(blob);
+
+                if(db){
+                    // to perform transaction with videos store, and open that store in readwrite fashion
+                    let dbTransaction=db.transaction("videos","readwrite");
+                    let videoStore=dbTransaction.objectStore("videos");
+                    
+                    let videoId=shortid();
+
+                    videoStore.put({
+                        // the primary key
+                        "id" : `vid-${videoId}`, 
+                        // the video itself in blob format
+                        "blobData": blob
+                    });
+                }
+
+                // let a = document.createElement("a");
+                // a.href = videoUrl;
+                // a.download = "stream.mp4";
+                // a.click();
+            });
+
+        })
+        .catch(function (e) {
+            console.log("Media Devices not there!");
         });
-
-        // the media recorder api dosen't record continuouisly
-        // but records in chunks so need to store all the chunks;
-        mediaRecorder.addEventListener("dataavailable", function (e) {
-            chunks.push(e.data);
-        });
-
-        // // mediaRecorder.stop calls this callback
-        // // recording has stopped
-        mediaRecorder.addEventListener("stop", function (e) {
-
-            // once the recording has stopped need to combine the chunks
-            let blob = new Blob(chunks, { 'type': 'video/mp4' });
-            let videoUrl = URL.createObjectURL(blob);
-
-            let a = document.createElement("a");
-            a.href = videoUrl;
-            a.download = "stream.mp4";
-            a.click();
-        });
-
-    })
-    .catch(function (e) {
-        console.log("Media Devices not there!");
-    });
 
 recordBtnCont.addEventListener("click", function (e) {
 
@@ -138,8 +164,29 @@ captureBtn.addEventListener("click", function (e) {
     console.log("fillStyle:", tool.fillStyle);
 
     let canvasUrl = canvas.toDataURL();
-    let a = document.createElement("a");
-    a.href = canvasUrl;
-    a.download = "image.jpg";
-    a.click();
+    
+    if(db){
+        // to perform transaction with image store, and open that store in readwrite fashion
+        let dbTransaction=db.transaction("images","readwrite");
+        let imageStore=dbTransaction.objectStore("images");
+        
+        let imageId=shortid();
+
+        imageStore.put({
+            // the primary key
+            "id" : `img-${imageId}`, 
+            // the video itself in blob format
+            "url": canvasUrl
+        });
+    }
+    
+    // let a = document.createElement("a");
+    // a.href = canvasUrl;
+    // a.download = "image.jpg";
+    // a.click();
+})
+
+galleryBtn.addEventListener("click",function(e){
+    console.log("Going to gallery!");
+    window.location.href="./gallery.html";
 })

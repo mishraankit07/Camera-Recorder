@@ -7,6 +7,33 @@ body{
     margin: 0;
 }
 
+.main-cont{
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.main-cont > *{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20rem;
+    height: 5rem;
+    background-color: turquoise;
+    border: 2px solid black;
+    font-size: 3rem;
+    border-radius: 10px;
+}
+
+.screen-record-btn:hover{
+    background-color: rgb(102, 255, 0);
+}
+
 .video-cont{
     width: 100vw;
     height: 100vh;
@@ -98,7 +125,6 @@ body{
 }
 
 .timer-cont{
-    /* display: none; */
     width: 5rem;
     height: 5rem;
     color: cyan;
@@ -107,6 +133,7 @@ body{
     bottom: 10rem;
     left: 2rem;
     z-index: 2;
+    display: none;
 }
 
 .filters-cont{
@@ -152,4 +179,20 @@ body{
     width: 100vw;
     height: 100vh;
     z-index: 1;
+}
+
+.gallery-icon-cont{
+    color: white;
+    position: absolute;
+    right: 5.5rem;
+    bottom: 11rem;
+    z-index: 2;
+}
+
+.gallery-icon-cont > *{
+    font-size: 3rem;
+}
+
+.gallery-icon-cont:hover{
+    cursor: pointer;
 }

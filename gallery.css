@@ -1,0 +1,53 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.content-cont{
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.content-card{
+    width: 20rem;
+    height: 20rem;
+    background-color: blue;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.vid-cont{
+    width: 100%;
+    height: 70%;
+    background-color: aqua;
+}
+
+.gallery-video-stream{
+    width: 100%;
+    height: 100%;
+}
+
+.btn{
+    width: 100%;
+    height: 15%;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.download-btn-cont{
+    background-color: blueviolet;
+}
+
+.delete-btn-cont{
+    background-color: coral;
+}
