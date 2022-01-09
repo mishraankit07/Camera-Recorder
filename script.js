@@ -36,16 +36,16 @@ for (let i = 0; i < filtersArr.length; i++) {
     filtersArr[i].addEventListener("click", function (e) {
         activeColor = window.getComputedStyle(filtersArr[i]).getPropertyValue('background-color');
         imgFilter.style.backgroundColor = activeColor;
-        console.log("color:", activeColor);
-        console.log("img color:", window.getComputedStyle(imgFilter).getPropertyValue('background-color'));
+        // console.log("color:", activeColor);
+        // console.log("img color:", window.getComputedStyle(imgFilter).getPropertyValue('background-color'));
     })
 }
 
-    console.log("video record btn clicked!");
+    // console.log("video record btn clicked!");
 
     navigator.mediaDevices.getUserMedia(constraints)
         .then(function (mediaStream) {
-            // videoStream.srcObject = mediaStream;
+            videoStream.srcObject = mediaStream;
             mediaRecorder = new MediaRecorder(mediaStream);
 
             // // when the recording starts, clear out the old recorded array
@@ -66,6 +66,8 @@ for (let i = 0; i < filtersArr.length; i++) {
                 // once the recording has stopped need to combine the chunks
                 let blob = new Blob(chunks, { 'type': 'video/mp4' });
                 let videoUrl = URL.createObjectURL(blob);
+
+                // console.log("videoUrl:",videoUrl);
 
                 if(db){
                     // to perform transaction with videos store, and open that store in readwrite fashion
@@ -90,7 +92,7 @@ for (let i = 0; i < filtersArr.length; i++) {
 
         })
         .catch(function (e) {
-            console.log("Media Devices not there!");
+            alert("Media Devices not there!");
         });
 
 recordBtnCont.addEventListener("click", function (e) {
@@ -161,7 +163,7 @@ captureBtn.addEventListener("click", function (e) {
     tool.drawImage(videoStream, 0, 0, canvas.width, canvas.height);
     tool.fillStyle = activeColor;
     tool.fillRect(0, 0, canvas.width, canvas.height);
-    console.log("fillStyle:", tool.fillStyle);
+    // console.log("fillStyle:", tool.fillStyle);
 
     let canvasUrl = canvas.toDataURL();
     

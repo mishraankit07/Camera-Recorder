@@ -8,40 +8,39 @@ body{
 }
 
 .content-cont{
+    width: 100vw;
     min-height: 100vh;
-    width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    background-color: #bdc3c7;
 }
 
 .content-card{
     width: 20rem;
     height: 20rem;
-    background-color: blue;
-    margin: 1rem;
     display: flex;
+    margin: 1rem;
+    border: 8px solid white;
     flex-direction: column;
 }
 
-.vid-cont{
-    width: 100%;
-    height: 70%;
+.media-cont{
+    height: calc(100% - 2rem - 2rem);
     background-color: aqua;
 }
 
 .gallery-video-stream{
     width: 100%;
     height: 100%;
+    object-fit: fill;
 }
 
 .btn{
+    height: 2rem;
     width: 100%;
-    height: 15%;
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 1rem;
+    color: white
 }
 
 .download-btn-cont{
@@ -50,4 +49,20 @@ body{
 
 .delete-btn-cont{
     background-color: coral;
+}
+
+.delete-btn{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.download-btn{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
